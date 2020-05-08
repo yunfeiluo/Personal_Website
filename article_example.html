@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- <html lang="zh-cn"> -->
+<head>
+<title>Yunfei Luo's Personal Website</title>
+    <link rel="icon" type="image/x-icon" href="static/images/icon.png" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>-->
+    <!-- general static files -->
+    <link rel="stylesheet" href="static/css/basic.css">
+    <!--<link rel="stylesheet" href="{{ url_for('static',filename='css/basic.css',_external=True) }}">-->
+    <script rel="stylesheet" src='static/js/front.js'></script>
+    <!--<script rel="stylesheet" src="{{ url_for('static',filename='js/front.js') }}"></script>-->
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <ul>
+                <li style="cursor:pointer">
+                    <a href="index.html">Home</a></li>
+                <li style="cursor:pointer" onclick = "scroll_down(' ')">
+                    <a class="active">Blogs</a></li>
+                <li style="cursor:pointer" onclick = "scroll_down('bcontact')">
+                    <a>Contact</a></li>
+                <!--<li style="cursor:pointer" onclick = "scroll_down('login')">
+                    <a>Login</a></li>-->
+            </ul>
+        </div>
+        <!--back to top button-->
+        <div>
+            <button id = "scroll_top" onmouseover = "opa_up('s')" onmouseout = "opa_down('s')" onclick = "scroll_top()">
+                <img src="static/images/to-top.png">
+            </button>
+        </div>
+    </header>
+
+    <!-- section 0 -->
+    <!-- section 1 -->
+    <section class = "about">
+        <div class = "container">
+            <h2>This page is not ready</h2>
+            <embed src="articles/studentlife_spring2020_report.pdf" width="100%" height="1000px" />
+        </div>
+    </section>
+
+    <!-- The end: footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="top">
+                <figure>
+                    <h4>Contact Info.</h4>
+                    <ul>
+                        <li><p>E-mail: yunfeiluo@umass.edu</p></li>
+                        <li><p>Phone: 413. 404. 2124</p></li>
+                    </ul>
+                </figure>
+                <figure>
+                    <h4>About Me</h4>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/in/yunfei-luo-616ab7171/" target="_blank"><u>My LinkedIn Profile</u></a></li>
+                        <li><a href="https://github.com/yunfeiluo" target="_blank"><u>My Github</u></a></li>
+                    </ul>
+                </figure>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    
+        <div class="container">
+            <div class="bottom">
+                XXX Supported
+            </div>
+        </div>
+    </footer>
+    </body>
+    </html>
