@@ -174,58 +174,6 @@ a{text-decoration: none;}
     color:rgb(1, 1, 1);
 }
 
-/*contact us*/
-.contact_us{
-    width: 100%;
-    background: url("../images/contact-bg.jpg");
-    background-position: center 0;
-    background-repeat: no-repeat;
-    background-size: cover;
-    -webkit-background-size: cover;  /* for Webkit kernal browser such as Chrome和Safari */
-    -o-background-size: cover;  /* for Opera */     
-    padding:20px 0 30px 0;
-}
-.contact_us h1{
-    color:#d4d3d3;
-}
-.contact_us h2{
-    color:#ffffff;
-}
-.contact_us .leave-msg{
-    float: center;
-}
-.contact_us .leave-msg div{
-    display: inline;
-}
-.contact_us .leave-msg input{
-    width: 280px;
-    height: 40px;
-    opacity: 0.8;
-}
-.contact_us .leave-msg input::-webkit-input-placeholder{
-    font-size: 20px;
-}
-.contact_us .leave-msg textarea{
-    resize: none;
-    width: 848px;
-    height: 150px;
-    opacity: 0.8;
-}
-.contact_us .leave-msg textarea::-webkit-input-placeholder{
-    font-size: 20px;
-}
-.contact_us .leave-msg button{
-    cursor: pointer;
-    width: 848px;
-    height: 50px;
-    opacity: 0.8;
-}
-.contact_us .leave-msg button p{
-    text-align: center;
-    font-size: 30px;
-    color:#474343;
-}
-
 /*slide*/
 #prev{
     position: absolute;
@@ -246,4 +194,29 @@ a{text-decoration: none;}
     right: 50px;
     top: 600px;
     opacity: 0.5;
+}
+
+/*the appearence of list*/
+#list .doc{
+    width: 100%;
+    background: url("../images/bg.jpg");
+    cursor: pointer;
+}
+
+#list .split{
+    background: url("../images/bg.png");
+    padding: 0 0 20px 0;
+    cursor: default;
+}
+
+#list .back_button{
+    background: url("../images/bg.jpg");
+    cursor: pointer;
+    padding: 10px 50px 10px 50px;
+}
+
+#list .back_button p{
+    padding: 0 0 0 0;
+    color:rgb(1, 1, 1);
+    font-size: 30px;
 }

@@ -1,0 +1,7 @@
+﻿PC：
+	absolute compatible（css, js）：
+		chrome
+		firefox
+		qq browser（under the frame of flask, the event ot js scroll is not compatible）
+
+	Microsoft edge & Safari: js script not compatible（scroll event）

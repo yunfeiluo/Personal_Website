@@ -4,12 +4,12 @@ var pos = 0;
 window.onload =function(){
     //scroll to top button visibility
     pos = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-    if (pos != 0){
-        $("#scroll_top").show();
-    }
-    else {
-        $("#scroll_top").hide();
-    }
+    // if (pos != 0){
+    //     $("#scroll_top").show();
+    // }
+    // else {
+    //     ("#scroll_top").hide();
+    // }
     //reject right click
     document.oncontextmenu = function(){
         return false;
@@ -42,12 +42,12 @@ window.onload =function(){
 //scroll lisener (mainly for scroll-top)
 window.onscroll=function(){
     pos = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-    if (pos != 0){
-        $("#scroll_top").show();
-    }
-    else {
-        $("#scroll_top").hide();
-    }
+    // if (pos != 0){
+    //     $("#scroll_top").show();
+    // }
+    // else {
+    //     $("#scroll_top").hide();
+    // }
 };
 
 //global variables
