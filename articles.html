@@ -40,22 +40,59 @@
         <div class = "container">
             </script>
             <h2>Articles</h2>
+
             <div id="list"></div>
             <script type="text/javascript" src="articles/list.js"></script>
             <script type="text/javascript">
                 let doc_type = "all";
+                let doc_list = data.blogs;
             </script>
-            <!-- <script type="text/babel" src="static/js/DocList.js"></script> -->
+            <!-- <script type="text/babel" src="static/js/DocListSearch.js"></script> -->
             <script type="text/babel">
             class DocList extends React.Component {
                 constructor(props){
                     super(props);
                     this.state = {list: true, depth:-1};
-                    this.items = [];
+                    this.items = this.get_method(".", doc_type, " ");
                     this.handleClick = this.handleClick.bind(this);
                     this.curr_items = [];
                 }
                 
+                // helper functions
+                // get json file from backend
+                dfs(item, res){
+                    res.push(item);
+                    if (item.docs.length == 0){
+                        return undefined;
+                    }
+                    for (let sub_item of item.docs){
+                        this.dfs(sub_item, res);
+                    }
+                }
+
+                get_method(url, doc_type, queries){
+                    if (doc_type == "documentations"){
+                        return data.documentations;
+                    }
+                    if (doc_type == "blogs"){
+                        return data.blogs;
+                    }
+                    if (doc_type == "reports"){
+                        return data.reports;
+                    }   
+                    
+                    let res = [];
+                    let curr_list = [data.documentations, data.reports, data.blogs];
+                    
+                    for (let list of curr_list){
+                        for (let item of list){
+                            this.dfs(item, res);
+                        }
+                    }
+                    return res;
+                }
+                
+                // handling events
                 // switch between article and list
                 handleClick(item){
                     if (item.path != "back"){
@@ -78,7 +115,23 @@
                         document.getElementById('list')
                     );
                 }
+
+                handle_search(){
+                    let query_term = document.getElementById("search_text").value;
+                    if (query_term == "blogs"){
+                        this.items = this.get_method(".", "blogs", query_term);
+                    }
+                    else{
+                        this.items = this.get_method(".", "all", query_term);
+                    }
+                    ReactDOM.render(
+                        <DocList></DocList>,
+                        document.getElementById('list')
+                    );
+                    return false;
+                }
                 
+                // rendor stuff
                 // load the document
                 display_document(){
                     const list = [];
@@ -102,47 +155,22 @@
                     list.push(<div><button className ="back_button" onClick = {()=> this.handleClick({path: "back"})}><p>Back</p></button></div>);
                     return (<div>{list}</div>);
                 }
-
-                // get json file from backend
-                dfs(item, res){
-                    res.push(item);
-                    if (item.docs.length == 0){
-                        return undefined;
-                    }
-                    for (let sub_item of item.docs){
-                        this.dfs(sub_item, res);
-                    }
-                }
-
-                get_method(url, doc_type){
-                    if (doc_type == "documentations"){
-                        return data.documentations;
-                    }
-                    if (doc_type == "blogs"){
-                        return data.blogs;
-                    }
-                    if (doc_type == "reports"){
-                        return data.reports;
-                    }   
-                    
-                    let res = [];
-                    let curr_list = [data.documentations, data.reports, data.blogs];
-                    
-                    for (let list of curr_list){
-                        for (let item of list){
-                            this.dfs(item, res);
-                        }
-                    }
-                    return res;
-                }
                 
                 // load the list
                 generate_list(){
-                    //this.fetch_list(); // get the data of list (json)
-                    this.items = this.get_method(".", doc_type);
-
                     // push to the list tag
                     const list = [];
+                    list.push(
+                        <div>
+                        <form onSubmit={() => this.handle_search()} target="curr_iframe">
+                            <div>
+                            <input id="search_text" type="text" />      
+                            <input id="search_button" type="button" value="Submit" onClick={() => this.handle_search()}/>
+                            </div>
+                        </form>
+                        <iframe id="curr" name="curr_iframe" style={{display: "none"}}></iframe>
+                        </div>
+                    );
                     for (let item of this.items) {
                     list.push(
                         <div id = {item.id}>
@@ -158,6 +186,7 @@
                     return (<div>{list}</div>);
                 }
                 
+                // rendor funcion
                 render () {
                     if (this.state.list){
                         return this.generate_list();

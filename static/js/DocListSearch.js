@@ -1,4 +1,4 @@
-class DocList extends React.Component {
+class DocListSearch extends React.Component {
     constructor(props){
         super(props);
         this.state = {list: true, depth:-1};
@@ -60,9 +60,24 @@ class DocList extends React.Component {
             }
         }
         ReactDOM.render(
-            <DocList></DocList>,
+            <DocListSearch></DocListSearch>,
             document.getElementById('list')
         );
+    }
+
+    handle_search(){
+        let query_term = document.getElementById("search_text").value;
+        if (query_term == "blogs"){
+            this.items = this.get_method(".", "blogs", query_term);
+        }
+        else{
+            this.items = this.get_method(".", "all", query_term);
+        }
+        ReactDOM.render(
+            <DocListSearch></DocListSearch>,
+            document.getElementById('list')
+        );
+        return false;
     }
     
     // rendor stuff
@@ -94,6 +109,17 @@ class DocList extends React.Component {
     generate_list(){
         // push to the list tag
         const list = [];
+        list.push(
+            <div>
+            <form onSubmit={() => this.handle_search()} target="curr_iframe">
+                <div>
+                <input id = "search" type="text" />      
+                <input type="button" value="Submit" onClick={() => this.handle_search()}/>
+                </div>
+            </form>
+            <iframe id="curr" name="curr_iframe" style={{display: "none"}}></iframe>
+            </div>
+        );
         for (let item of this.items) {
         list.push(
             <div id = {item.id}>
@@ -122,6 +148,6 @@ class DocList extends React.Component {
 
 // Apply
 ReactDOM.render(
-    <DocList></DocList>,
+    <DocListSearch></DocListSearch>,
     document.getElementById('list')
 );

@@ -86,6 +86,8 @@ class preprocess:
                     if len(word) >= 1:
                         words.extend(self.removeD(word))
                     word = ''
+            if len(word) >= 1:
+                words.extend(self.removeD(word))
         return words
     
     def stopword_removel(self):

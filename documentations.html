@@ -50,11 +50,46 @@
                 constructor(props){
                     super(props);
                     this.state = {list: true, depth:-1};
-                    this.items = [];
+                    this.items = this.get_method(".", doc_type, " ");
                     this.handleClick = this.handleClick.bind(this);
                     this.curr_items = [];
                 }
                 
+                // helper functions
+                // get json file from backend
+                dfs(item, res){
+                    res.push(item);
+                    if (item.docs.length == 0){
+                        return undefined;
+                    }
+                    for (let sub_item of item.docs){
+                        this.dfs(sub_item, res);
+                    }
+                }
+
+                get_method(url, doc_type, queries){
+                    if (doc_type == "documentations"){
+                        return data.documentations;
+                    }
+                    if (doc_type == "blogs"){
+                        return data.blogs;
+                    }
+                    if (doc_type == "reports"){
+                        return data.reports;
+                    }   
+                    
+                    let res = [];
+                    let curr_list = [data.documentations, data.reports, data.blogs];
+                    
+                    for (let list of curr_list){
+                        for (let item of list){
+                            this.dfs(item, res);
+                        }
+                    }
+                    return res;
+                }
+                
+                // handling events
                 // switch between article and list
                 handleClick(item){
                     if (item.path != "back"){
@@ -78,6 +113,7 @@
                     );
                 }
                 
+                // rendor stuff
                 // load the document
                 display_document(){
                     const list = [];
@@ -101,45 +137,9 @@
                     list.push(<div><button className ="back_button" onClick = {()=> this.handleClick({path: "back"})}><p>Back</p></button></div>);
                     return (<div>{list}</div>);
                 }
-
-                // get json file from backend
-                dfs(item, res){
-                    res.push(item);
-                    if (item.docs.length == 0){
-                        return undefined;
-                    }
-                    for (let sub_item of item.docs){
-                        this.dfs(sub_item, res);
-                    }
-                }
-
-                get_method(url, doc_type){
-                    if (doc_type == "documentations"){
-                        return data.documentations;
-                    }
-                    if (doc_type == "blogs"){
-                        return data.blogs;
-                    }
-                    if (doc_type == "reports"){
-                        return data.reports;
-                    }   
-                    
-                    let res = [];
-                    let curr_list = [data.documentations, data.reports, data.blogs];
-                    
-                    for (let list of curr_list){
-                        for (let item of list){
-                            this.dfs(item, res);
-                        }
-                    }
-                    return res;
-                }
                 
                 // load the list
                 generate_list(){
-                    //this.fetch_list(); // get the data of list (json)
-                    this.items = this.get_method(".", doc_type);
-
                     // push to the list tag
                     const list = [];
                     for (let item of this.items) {
@@ -157,6 +157,7 @@
                     return (<div>{list}</div>);
                 }
                 
+                // rendor funcion
                 render () {
                     if (this.state.list){
                         return this.generate_list();
