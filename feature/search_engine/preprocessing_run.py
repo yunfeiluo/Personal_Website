@@ -37,8 +37,8 @@ def preprocessing(stored_docs_path, indexing_path, collection_path):
     #     print(inv_ind[term])
     #     print(' ')
 
-    # for i in tokenize.text:
-    #     print(len(tokenize.text[i]["text"]))
+    for i in tokenize.text:
+        print(len(tokenize.text[i]["text"]))
     
 if __name__ == '__main__':
     stored_docs_path = 'articles/list.json'

@@ -35,11 +35,11 @@ was collected over 10 weeks among 48 students.
 3.1. Density Based Clustering based on Dynamic Time Warping (DTW) on series of stress labels
 The stress labels we have for each student form a time series data. Since the stress labels for
 
-the students falls in dierent set of days during the 2 months range, using distance criteria like Eu-
-clidean and Manhattan distance is not reasonable. In order to nd the similarity among students,
+the students falls in different set of days during the 2 months range, using distance criteria like Eu-
+clidean and Manhattan distance is not reasonable. In order to find the similarity among students,
 students can be clustered based on the DTW distance, that considering the distortion of the data.
-Since each student have dierent number of stress label recorded, the lengths of these time se-
-ries data are dierent. So the methods based on nding centroids such K-Means and Mean-shift are
+Since each student have different number of stress label recorded, the lengths of these time se-
+ries data are different. So the methods based on finding centroids such K-Means and Mean-shift are
 not applicable. Instead, hierarchical clustering methods can be used in this case. Density-Based-
 Spatial-Clustering-of-Applications-with-Noise (DBSCAN) is the one I used for clustering these series
 data. The noise data points were greedily assigned to the existed groups that are the closest to them.
@@ -54,17 +54,17 @@ points.
 Figure 4. clusters visualize, where x-axis is the average stress labels
 3.3. Density Based Clustering on chosen features from aggregated surveys score
 The ideal way is to clustering students based on surveys score. So for a new student, we could
-rst collect the survey results, then put the student in to proper cluster. For now, I had use the
+first collect the survey results, then put the student in to proper cluster. For now, I had use the
 features: average hours slept, average deadline per week, and mode sleep rating. In order to guar-
 antee that in the training dataset, no group contains only one student, I use the same methods in
-3.1: use DBSCAN rst, then put the noise data in the closest clusters.
+3.1: use DBSCAN first, then put the noise data in the closest clusters.
 
 Figure 5. Clusters visualize with three chosen features from surveys
 4. Experiment results:
 The model evaluation method I used is 5-fold cross validation. The metrics include F1 score and
 AUC were averaged across the 5 splits. I've also include the results of original data in the table, i.e.
 each group contain exactly one student.
-Table 1. The best results that each dierent clustering method obtained
+Table 1. The best results that each different clustering method obtained
 5. Conclusion and Future work
 The results from experiments shows that using clusters based on average stress labels has better
 
@@ -72,16 +72,16 @@ performance. However, in order to know how well a model performed, we need to ru
 validations, which haven't being completed. After that, we could know how the model generalized
 among each individual.
 In addition, there are still many other surveys scores that haven't been used in clustering. In
-order to use these features, I need to do more work on knowing how the scores of dierent types of
+order to use these features, I need to do more work on knowing how the scores of different types of
 surveys are aggregated.
 A. Appendix
-A.1. Model Conguration
-Weights for Losses:  = 0:0001 for autoencoder reconstruction error,  = 1 for classication error
+A.1. Model Configuration
+Weights for Losses: alpha = 0:0001 for autoencoder reconstruction error, beta = 1 for classication error
 Auto-Encoder bottleneck size: 128
 Shared Layer size: 256
 User(Group) Layer size: 64
 Epochs: 500
 Gradient Descent step size: 0.000001
-L2 norm regularization coe: 0.0001
+L2 norm regularization coeff: 0.0001
 Dropout probabilities: None
 Validation method: 5-fold validation, stratied splitting by the group-id/stress-label pairs

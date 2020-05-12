@@ -55,7 +55,7 @@ class DocList extends React.Component {
     }
 
      // get json file from backend
-     dfs(item, res){
+    dfs(item, res){
         res.push(item);
         if (item.docs.length == 0){
             return undefined;

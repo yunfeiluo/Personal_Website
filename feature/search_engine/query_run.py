@@ -12,8 +12,8 @@ def query(queries_path, indexing_path, collection_path):
     with open(queries_path, 'r') as f:
         queries = json.load(f)
 
-    #model = BM25(k1=1.1, k2=10, b=0.6, inv_ind = inv_ind, docs=docs)
-    model = Query_Likelihood(mu=1000, inv_ind = inv_ind, docs=docs)
+    model = BM25(k1=1.1, k2=10, b=0.6, inv_ind = inv_ind, docs=docs)
+    #model = Query_Likelihood(mu=1000, inv_ind = inv_ind, docs=docs)
 
     retrieved_list = model.queries(queries)
     return retrieved_list
