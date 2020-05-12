@@ -17,12 +17,12 @@ window.onload =function(){
     //reject view source code
     document.onkeydown = function (){
         var e = window.event || arguments[0];
-        //F12
-        if(e.keyCode == 123){
-            return false;
-        }
+        // //F12
+        // if(e.keyCode == 123){
+        //     return false;
+        // }
         //Ctrl+Shift+I
-        else if((e.ctrlKey) && (e.shiftKey) && (e.keyCode == 73)){
+        if((e.ctrlKey) && (e.shiftKey) && (e.keyCode == 73)){
             return false;
         }
         //Shift+F10

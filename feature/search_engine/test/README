@@ -1,0 +1,12 @@
+Dependencies: Python3 with package gzip and numpy.
+1) download Python3 at "https://www.python.org/downloads/"
+2) json and gzip is built-in package. 
+
+Building the code: 
+The code with suffix ".py" is runnable, and in this project, the main driver is "run.py". 
+
+Running the code: 
+1) extract the zip file
+2) run the code by typing: python -m src.run
+3) the program will read and parse the input file, then initialize a "inverted index" object and build the indeces.
+4) the program will then iterate over the queries, and compute scores for each documents based on BM25 and QL back-to-back. 

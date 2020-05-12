@@ -41,9 +41,11 @@
             <h2>Blogs</h2>
             <div id="list"></div>
             <script type="text/javascript" src="articles/list.js"></script>
-            <!-- <script type="text/babel" src="static/js/DocList.jsx"></script> -->
+            <script type="text/javascript">
+                let doc_type = "blogs";
+            </script>
+            <!-- <script type="text/babel" src="static/js/DocList.js"></script> -->
             <script type="text/babel">
-            // define class
             class DocList extends React.Component {
                 constructor(props){
                     super(props);
@@ -82,44 +84,73 @@
                     list.push(
                         <div id = {"display_doc"}>
                             <embed src={this.curr_items[this.state.depth].path} width="100%" height="650px" />
-                            <div><button class ="back_button" onClick = {()=> this.handleClick({path: "back"})}><p>Back</p></button></div>
                         </div>
                     );
                     for (let item of this.curr_items[this.state.depth].docs) {
                     list.push(
                         <div id = {item.id}>
-                            <div class = "doc" onClick = {() => this.handleClick(item)}>
+                            <div className = "doc" onClick = {() => this.handleClick(item)}>
                             <div><h3>{item.title}</h3></div>
                             <div>{item.summery}</div>
                             <div><u>(Click to view the full article)</u></div>
                             </div>
-                            <div class = "split"><hr /></div>
+                            <div className = "split"><hr /></div>
                         </div>
                     );
                     }
+                    list.push(<div><button className ="back_button" onClick = {()=> this.handleClick({path: "back"})}><p>Back</p></button></div>);
                     return (<div>{list}</div>);
                 }
-                
+
                 // get json file from backend
-                fetch_list(){
-                    this.items = data.blogs;
+                dfs(item, res){
+                    res.push(item);
+                    if (item.docs.length == 0){
+                        return undefined;
+                    }
+                    for (let sub_item of item.docs){
+                        this.dfs(sub_item, res);
+                    }
+                }
+
+                get_method(url, doc_type){
+                    if (doc_type == "documentations"){
+                        return data.documentations;
+                    }
+                    if (doc_type == "blogs"){
+                        return data.blogs;
+                    }
+                    if (doc_type == "reports"){
+                        return data.reports;
+                    }   
+                    
+                    let res = [];
+                    let curr_list = [data.documentations, data.reports, data.blogs];
+                    
+                    for (let list of curr_list){
+                        for (let item of list){
+                            this.dfs(item, res);
+                        }
+                    }
+                    return res;
                 }
                 
                 // load the list
                 generate_list(){
-                    this.fetch_list(); // get the data of list (json)
+                    //this.fetch_list(); // get the data of list (json)
+                    this.items = this.get_method(".", doc_type);
 
                     // push to the list tag
                     const list = [];
                     for (let item of this.items) {
                     list.push(
                         <div id = {item.id}>
-                            <div class = "doc" onClick = {() => this.handleClick(item)}>
+                            <div className = "doc" onClick = {() => this.handleClick(item)}>
                             <div><h3>{item.title}</h3></div>
                             <div>{item.summery}</div>
                             <div><u>(Click to view the full article)</u></div>
                             </div>
-                            <div class = "split"><hr /></div>
+                            <div className = "split"><hr /></div>
                         </div>
                     );
                     }

@@ -10,9 +10,9 @@ class Query_Likelihood:
         self.mu = mu
         self.inv_ind = inv_ind
         self.docs = docs
-        self.C = len(docs)
+        self.C = sum([len(docs[i]['text']) for i in docs])
         self.scenes = dict() # map: doc_id -> score
-        for i in range(len(self.docs)):
+        for i in self.docs:
             self.scenes[i] = -1
     
     # lambda self, arr(tuple): dict
@@ -24,8 +24,7 @@ class Query_Likelihood:
 
     # queries alg, return map: docId -> score
     def queries(self, queries):
-        # TODO
-        words = queries.split(' ')
+        words = queries
         for scene in self.scenes:
             score = 0
             D = len(self.docs[scene]['text'])
@@ -35,11 +34,19 @@ class Query_Likelihood:
                     fi = len(self.inv_ind[word][scene])
                 except:
                     fi = 0
-                cqi = sum([len(self.inv_ind[word][i]) for i in self.inv_ind[word]])
-                score += math.log((fi + self.mu * (cqi / self.C)) / (D + self.mu))
+                cqi = None
+                try:
+                    cqi = sum([len(self.inv_ind[word][i]) for i in self.inv_ind[word]])
+                except:
+                    cqi = 0
+                try:
+                    score += math.log((fi + self.mu * (cqi / self.C)) / (D + self.mu))
+                except:
+                    score += 0
             self.scenes[scene] = score
-        self.scenes = self.rebuild_dict(reversed(sorted(self.scenes.items(), key = lambda x:x[1])))
-        return self.scenes
+        #self.scenes = self.rebuild_dict(reversed(sorted(self.scenes.items(), key = lambda x:x[1])))
+        res = reversed(sorted(self.scenes.items(), key = lambda x:x[1]))
+        return [self.docs[i[0]] for i in res]
 
 class BM25:
     def __init__(self, k1, k2, b, inv_ind, docs):
@@ -56,9 +63,9 @@ class BM25:
         self.N = len(docs)
         self.avdl = 0
         self.scenes = dict() # map: doc_id -> score
-        for i in range(self.N):
+        for i in docs:
             self.scenes[i] = -1
-            self.avdl += len(docs[i]['text'])
+            self.avdl += len(docs[i]["text"])
         self.avdl /= self.N
     
     # lambda self, arr(tuple): dict
@@ -71,13 +78,13 @@ class BM25:
     # queries alg, return map: docId -> score
     def queries(self, queries):
         qf = dict()
-        for term in queries.split(' '):
+        for term in queries:
             try:
                 qf[term] += 1
             except:
                 qf[term] = 1
         for scene in self.scenes:
-            K = self.k1 * ((1 - self.b) + self.b * (len(self.docs[scene]['text']) / self.avdl))
+            K = self.k1 * ((1 - self.b) + self.b * (len(self.docs[scene]["text"]) / self.avdl))
             score = 0
             for q in qf:
                 ni = 0
@@ -95,5 +102,6 @@ class BM25:
                 out *= ((self.k2 + 1) * qf[q]) / (self.k2 + qf[q])
                 score += out
             self.scenes[scene] = score
-        self.scenes = self.rebuild_dict(reversed(sorted(self.scenes.items(), key = lambda x:x[1])))
-        return self.scenes
+        #self.scenes = self.rebuild_dict(reversed(sorted(self.scenes.items(), key = lambda x:x[1])))
+        res = reversed(sorted(self.scenes.items(), key = lambda x:x[1]))
+        return [self.docs[i[0]] for i in res]

@@ -1,15 +1,36 @@
+class inverted_index:
+    def __init__(self, docs):
+        '''
+        @param docs: map: ind -> {obj, [text]}
+        '''
+        self.docs = docs
+        self.inv_ind = dict() # map: term -> map: doc_ind -> list of positions
+        for i in docs:
+            text = docs[i]["text"]
+            for j in range(len(text)):
+                term = text[j]
+                try: # check if the term key exist
+                    curr = self.inv_ind[term]
+                except:
+                    self.inv_ind[term] = dict()
+
+                try: # check if the doc key exist
+                    self.inv_ind[term][i].append(j)
+                except:
+                    self.inv_ind[term][i] = [j]
+
 class preprocess:
     '''
     tokenize, stopwords removel, stemming
     '''
     def __init__(self, stopwords, json_file):
         # stored
-        self.text = dict() # map: ind -> [obj, [text]]
+        self.text = dict() # map: ind -> {obj, [text]}
 
         # fetch all the documents
         self.ind = 0
         def dfs(item):
-            self.text[self.ind] = [item, list()]
+            self.text[self.ind] = {"obj": item, "text": list()}
             self.ind += 1
             if len(item["docs"]) == 0:
                 return
@@ -70,35 +91,36 @@ class preprocess:
     def stopword_removel(self):
         for i in self.text:
             words = list()
-            for word in self.text[i][1]:
+            for word in self.text[i]["text"]:
                 try:
                     curr = self.stopwords[word]
                 except:
                     words.append(word)
-            self.text[i][1] = words
+            self.text[i]["text"] = words
 
     
     def pre_process(self):
         for i in self.text:
             lines = list()
-            path = self.text[i][0]["path"]
+            path = self.text[i]["obj"]["path"]
             try:
                 with open(path[:len(path) - 3] + 'txt', 'r') as f:
                     lines = f.read()
                     lines = lines.split('\n')
                     lines.pop()
             except:
+                self.text[i]["text"] = list()
                 continue
 
             words = self.tokenize(lines)
-            self.text[i][1] = words
+            self.text[i]["text"] = words
         return self
     
     def stemming(self):
         from nltk.stem.snowball import SnowballStemmer
         stemmer = SnowballStemmer("english")
         for i in self.text:
-            words = self.text[i][1]
+            words = self.text[i]["text"]
             for i in range(len(words)):
                 words[i] = stemmer.stem(words[i])
         return self

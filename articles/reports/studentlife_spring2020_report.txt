@@ -1,8 +1,9 @@
-Undergraduate Independent Study 496 Report
+Independent Study Report
+University of Massachusetts Amherst
 Instructors: Madalina Fiterau, Iman Deznabi
 Student: Yunfei Luo
 Spring 2020
-May 9, 2020
+May 12, 2020
 ||||||||||||||||||||||||||||||||||||||||
 Personalized Student Stress Prediction with Deep Multitask Network
 Abstract
@@ -24,6 +25,7 @@ So for the sub MLP, instead of building them for each student, we build them for
 students. So when a new student come, instead of collecting data from the student, we just need
 to collect some features of the students, then we could put the student into the group that contains
 students who share similar characteristics with the new student, then make prediction.
+
 Figure 1.Personalized Model
 Figure 2.Grouplized Model
 2. Background Information
@@ -32,6 +34,7 @@ was collected over 10 weeks among 48 students.
 3. Methods
 3.1. Density Based Clustering based on Dynamic Time Warping (DTW) on series of stress labels
 The stress labels we have for each student form a time series data. Since the stress labels for
+
 the students falls in dierent set of days during the 2 months range, using distance criteria like Eu-
 clidean and Manhattan distance is not reasonable. In order to nd the similarity among students,
 students can be clustered based on the DTW distance, that considering the distortion of the data.
@@ -42,6 +45,7 @@ Spatial-Clustering-of-Applications-with-Noise (DBSCAN) is the one I used for clu
 data. The noise data points were greedily assigned to the existed groups that are the closest to them.
 Figure 3. samples of clusters.
 The x-axis is the time (days in a year + (hours in the day / 24)), the y-axis is the stress label
+
 3.2. K-Means Clustering on aggregated stress labels, i.e. average stress labels
 Considering that the density based clustering methods based on DTW is a bit complex, I sim-
 ply aggregated the series data with their means to be the data point. Then the clustering becomes
@@ -54,6 +58,7 @@ The ideal way is to clustering students based on surveys score. So for a new stu
 features: average hours slept, average deadline per week, and mode sleep rating. In order to guar-
 antee that in the training dataset, no group contains only one student, I use the same methods in
 3.1: use DBSCAN rst, then put the noise data in the closest clusters.
+
 Figure 5. Clusters visualize with three chosen features from surveys
 4. Experiment results:
 The model evaluation method I used is 5-fold cross validation. The metrics include F1 score and
@@ -62,6 +67,7 @@ each group contain exactly one student.
 Table 1. The best results that each dierent clustering method obtained
 5. Conclusion and Future work
 The results from experiments shows that using clusters based on average stress labels has better
+
 performance. However, in order to know how well a model performed, we need to run leave one out
 validations, which haven't being completed. After that, we could know how the model generalized
 among each individual.

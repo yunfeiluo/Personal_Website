@@ -56,10 +56,19 @@
         {
             "id": 1,
             "type": "reflection",
-            "title": "Image Reconstruction, Reflection on the paper",
-            "tags": ["Machine Learning", "Artificial Intelligence", "Neural Networks"],
-            "path": "articles/blogs/...",
-            "summery": ".",
+            "title": "Image Reconstruction with Artistic Style, Paper Review",
+            "tags": ["Machine Learning", "Artificial Intelligence", "Neural Networks", "Numerical Optimization", "Image Processing"],
+            "path": "articles/blogs/paper_review_artistic_style.pdf",
+            "summery": "The main goal of the paper is to introduce an artificial system that could create artistic images like what human could do with painting.",
+            "docs": []
+        },
+        {
+            "id": 2,
+            "type": "reflection",
+            "title": "Character Level Text Classification, Paper Review",
+            "tags": ["Machine Learning", "Artificial Intelligence", "Neural Networks", "Numerical Optimization", "Classification"],
+            "path": "articles/blogs/paper_review_char_level_text_classification.pdf",
+            "summery": "The main goal of the paper is to exemplify the performance of ConvNets (Convolutional Networks) on text classification, based on Character-level.",
             "docs": []
         }
     ]

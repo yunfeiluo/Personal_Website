@@ -1,9 +1,7 @@
 import json
-from feature.search_engine.tokenize import preprocess
-from feature.search_engine.indexing import inverted_index
-import feature.search_engine.retrieval_model as model
+from feature.search_engine.preprocess_and_indexing import preprocess, inverted_index
 
-if __name__ == '__main__':
+def preprocessing(stored_docs_path, indexing_path, collection_path):
     # fetch stopwords
     stopwords = list()
     with open('feature/search_engine/stopwords.txt', 'r') as f:
@@ -13,7 +11,7 @@ if __name__ == '__main__':
 
     # fetch json file of the documents
     data = None
-    with open('articles/list.json', 'r') as f:
+    with open(stored_docs_path, 'r') as f:
         data = json.load(f)
 
     # tokenize, stopwords removal, stemming
@@ -23,11 +21,27 @@ if __name__ == '__main__':
     tokenize.stopword_removel()
     inv_ind = inverted_index(tokenize.text).inv_ind # map: term -> map: doc_ind -> list of positions
 
-    # check
+    with open(indexing_path, 'w') as f:
+        json.dump(inv_ind, f)
+    
+    with open(collection_path, 'w') as f:
+        json.dump(tokenize.text, f)
+
+    # # check
+    # inv_ind = None
+
+    # with open(indexing_path, 'r') as f:
+    #     inv_ind = json.load(f)
     # for term in inv_ind:
     #     print(term)
     #     print(inv_ind[term])
     #     print(' ')
+
     # for i in tokenize.text:
-    #     print(len(tokenize.text[i][1]))
+    #     print(len(tokenize.text[i]["text"]))
     
+if __name__ == '__main__':
+    stored_docs_path = 'articles/list.json'
+    indexing_path = 'articles/indexing.json'
+    collection_path = 'articles/collection.json'
+    preprocessing(stored_docs_path, indexing_path, collection_path)
