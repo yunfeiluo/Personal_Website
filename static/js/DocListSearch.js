@@ -5,6 +5,7 @@ class DocListSearch extends React.Component {
         this.items = this.get_method(".", doc_type, " ");
         this.handleClick = this.handleClick.bind(this);
         this.curr_items = [];
+        this.search_attempted = 0;
     }
     
     // helper functions
@@ -66,6 +67,7 @@ class DocListSearch extends React.Component {
     }
 
     handle_search(){
+        this.search_attempted += 1;
         let query_term = document.getElementById("search_text").value;
         if (query_term == "blogs"){
             this.items = this.get_method(".", "blogs", query_term);
@@ -110,16 +112,23 @@ class DocListSearch extends React.Component {
         // push to the list tag
         const list = [];
         list.push(
-            <div>
+            <div id="search_bar">
             <form onSubmit={() => this.handle_search()} target="curr_iframe">
                 <div>
-                <input id = "search" type="text" />      
-                <input type="button" value="Submit" onClick={() => this.handle_search()}/>
+                <input id="search_text" type="text" placeholder="search for documents"/>      
+                <input id="search_button" type="button" value="Search" onClick={() => this.handle_search()}/>
                 </div>
             </form>
             <iframe id="curr" name="curr_iframe" style={{display: "none"}}></iframe>
             </div>
         );
+        if (this.search_attempted > 0){
+            list.push(
+                <div id="result_bar">
+                    <p>Search Results: (attempted: {this.search_attempted})</p>
+                </div>
+            );
+        }
         for (let item of this.items) {
         list.push(
             <div id = {item.id}>

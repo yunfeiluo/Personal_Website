@@ -71,6 +71,7 @@ if __name__ == '__main__':
     
     retrieved_list = query(queries_path, indexing_path, collection_path)
 
-    # check
+    # check / output
     for i in retrieved_list:
         print(i["obj"]["title"])
+        

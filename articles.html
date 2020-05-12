@@ -49,13 +49,14 @@
             </script>
             <!-- <script type="text/babel" src="static/js/DocListSearch.js"></script> -->
             <script type="text/babel">
-            class DocList extends React.Component {
+            class DocListSearch extends React.Component {
                 constructor(props){
                     super(props);
                     this.state = {list: true, depth:-1};
                     this.items = this.get_method(".", doc_type, " ");
                     this.handleClick = this.handleClick.bind(this);
                     this.curr_items = [];
+                    this.search_attempted = 0;
                 }
                 
                 // helper functions
@@ -111,12 +112,13 @@
                         }
                     }
                     ReactDOM.render(
-                        <DocList></DocList>,
+                        <DocListSearch></DocListSearch>,
                         document.getElementById('list')
                     );
                 }
 
                 handle_search(){
+                    this.search_attempted += 1;
                     let query_term = document.getElementById("search_text").value;
                     if (query_term == "blogs"){
                         this.items = this.get_method(".", "blogs", query_term);
@@ -125,7 +127,7 @@
                         this.items = this.get_method(".", "all", query_term);
                     }
                     ReactDOM.render(
-                        <DocList></DocList>,
+                        <DocListSearch></DocListSearch>,
                         document.getElementById('list')
                     );
                     return false;
@@ -161,16 +163,23 @@
                     // push to the list tag
                     const list = [];
                     list.push(
-                        <div>
+                        <div id="search_bar">
                         <form onSubmit={() => this.handle_search()} target="curr_iframe">
                             <div>
-                            <input id="search_text" type="text" />      
-                            <input id="search_button" type="button" value="Submit" onClick={() => this.handle_search()}/>
+                            <input id="search_text" type="text" placeholder="search for documents"/>      
+                            <input id="search_button" type="button" value="Search" onClick={() => this.handle_search()}/>
                             </div>
                         </form>
                         <iframe id="curr" name="curr_iframe" style={{display: "none"}}></iframe>
                         </div>
                     );
+                    if (this.search_attempted > 0){
+                        list.push(
+                            <div id="result_bar">
+                                <p>Search Results: (attempted: {this.search_attempted})</p>
+                            </div>
+                        );
+                    }
                     for (let item of this.items) {
                     list.push(
                         <div id = {item.id}>
@@ -199,7 +208,7 @@
 
             // Apply
             ReactDOM.render(
-                <DocList></DocList>,
+                <DocListSearch></DocListSearch>,
                 document.getElementById('list')
             );
             </script>

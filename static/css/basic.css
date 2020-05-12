@@ -3,7 +3,11 @@ body,nav,ul,button{margin:0;padding:0;}
 html{
     scroll-behavior: smooth;
 }
-
+/*
+tag: nothing
+class: .
+id: #
+*/
 .header{
     /*height:290px;*/
     background-color: #333333;
@@ -219,4 +223,26 @@ a{text-decoration: none;}
     padding: 0 0 0 0;
     color:rgb(1, 1, 1);
     font-size: 30px;
+}
+
+/*search bar appearance*/
+#list #search_bar{
+    text-align: center;
+    padding: 0 0 2px 0;
+}
+#list #search_text{
+    font-size: 25px;
+    width: 500px;
+    padding: 10px 5px 10px 5px;
+}
+
+#list #search_button{
+    background: url("../images/bg.jpg");
+    cursor: pointer;
+    font-size: 25px;
+    padding: 10px 50px 10px 50px;
+}
+
+#list #result_bar p{
+    padding: 0 0 0 0;
 }
