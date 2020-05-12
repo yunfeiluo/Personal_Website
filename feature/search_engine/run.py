@@ -17,9 +17,10 @@ if __name__ == '__main__':
         data = json.load(f)
 
     # tokenize, stopwords removal, stemming
-    tokenize = preprocess(stopwords, data)
+    tokenize = preprocess(stopwords, data) # tokenize.text, map: ind -> [obj, [text]]
     tokenize.pre_process()
-    tokenize.stemming() # tokenize.text, map: ind -> [obj, [text]]
+    tokenize.stemming()
+    tokenize.stopword_removel()
     inv_ind = inverted_index(tokenize.text).inv_ind # map: term -> map: doc_ind -> list of positions
 
     # check
