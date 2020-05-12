@@ -67,8 +67,18 @@ class preprocess:
                     word = ''
         return words
     
+    def stopword_removel(self):
+        for i in self.text:
+            words = list()
+            for word in self.text[i][1]:
+                try:
+                    curr = self.stopwords[word]
+                except:
+                    words.append(word)
+            self.text[i][1] = words
+
+    
     def pre_process(self):
-        self.words = list()
         for i in self.text:
             lines = list()
             path = self.text[i][0]["path"]
@@ -81,15 +91,7 @@ class preprocess:
                 continue
 
             words = self.tokenize(lines)
-            text_without_stem = list()
-            for word in words:
-                try:
-                    curr = self.stopwords[word]
-                except:
-                    text_without_stem.append(word)
-            self.text[i][1] = text_without_stem
-            self.words += text_without_stem
-        self.words = [i for i in set(self.words)]
+            self.text[i][1] = words
         return self
     
     def stemming(self):
@@ -98,8 +100,5 @@ class preprocess:
         for i in self.text:
             words = self.text[i][1]
             for i in range(len(words)):
-                print(words[i])
                 words[i] = stemmer.stem(words[i])
-                print(words[i])
-                print(' ')
         return self
