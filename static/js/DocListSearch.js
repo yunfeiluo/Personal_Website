@@ -2,7 +2,8 @@ class DocListSearch extends React.Component {
     constructor(props){
         super(props);
         this.state = {list: true, depth:-1};
-        this.items = this.get_method(".", doc_type, " ");
+        //this.items = this.get_method(".", doc_type, " ");
+        this.items = docs_list;
         this.handleClick = this.handleClick.bind(this);
         this.curr_items = [];
         this.search_attempted = 0;
@@ -10,36 +11,9 @@ class DocListSearch extends React.Component {
     
     // helper functions
     // get json file from backend
-    dfs(item, res){
-        res.push(item);
-        if (item.docs.length == 0){
-            return undefined;
-        }
-        for (let sub_item of item.docs){
-            this.dfs(sub_item, res);
-        }
-    }
-
-    get_method(url, doc_type, queries){
-        if (doc_type == "documentations"){
-            return data.documentations;
-        }
-        if (doc_type == "blogs"){
-            return data.blogs;
-        }
-        if (doc_type == "reports"){
-            return data.reports;
-        }   
-        
-        let res = [];
-        let curr_list = [data.documentations, data.reports, data.blogs];
-        
-        for (let list of curr_list){
-            for (let item of list){
-                this.dfs(item, res);
-            }
-        }
-        return res;
+    get_method(url, queries){
+        alert(queries);
+        return docs_list;
     }
     
     // handling events
@@ -69,12 +43,8 @@ class DocListSearch extends React.Component {
     handle_search(){
         this.search_attempted += 1;
         let query_term = document.getElementById("search_text").value;
-        if (query_term == "blogs"){
-            this.items = this.get_method(".", "blogs", query_term);
-        }
-        else{
-            this.items = this.get_method(".", "all", query_term);
-        }
+        // send request to backend, get json file back
+        this.items = this.get_method(".", query_term);
         ReactDOM.render(
             <DocListSearch></DocListSearch>,
             document.getElementById('list')

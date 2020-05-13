@@ -72,6 +72,12 @@ if __name__ == '__main__':
     retrieved_list = query(queries_path, indexing_path, collection_path)
 
     # check / output
+    content = "let docs_list = ["
     for i in retrieved_list:
         print(i["obj"]["title"])
+        content += str(i["obj"]) + ','
+    content = content[:len(content)-1]
+    content += ']'
+    with open("articles/retrieved_list.js", 'w') as f:
+        f.write(content)
         
