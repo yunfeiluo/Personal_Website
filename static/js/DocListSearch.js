@@ -1,19 +1,30 @@
 class DocListSearch extends React.Component {
     constructor(props){
         super(props);
-        this.state = {list: true, depth:-1};
-        //this.items = this.get_method(".", doc_type, " ");
-        this.items = docs_list;
+        this.state = {list: true, depth:-1, retrieved_list: {docs_list: []}};
+        this.items = this.state.retrieved_list.docs_list;
         this.handleClick = this.handleClick.bind(this);
         this.curr_items = [];
         this.search_attempted = 0;
     }
     
-    // helper functions
     // get json file from backend
-    get_method(url, queries){
-        alert(queries);
-        return docs_list;
+    fetch_docs(url, query_term){
+        fetch(url.concat(query_term), {
+            method: "GET"
+        }).then(response => {
+            return response.json()
+        }).then(data => {
+            // Work with JSON data here
+            this.setState({list: true, depth:-1, retrieved_list: data});
+            ReactDOM.render(
+                <DocListSearch></DocListSearch>,
+                document.getElementById('list')
+            );
+            console.log(this.state.retrieved_list);
+        }).catch(err => {
+            console.log('err');
+        });
     }
     
     // handling events
@@ -43,13 +54,9 @@ class DocListSearch extends React.Component {
     handle_search(){
         this.search_attempted += 1;
         let query_term = document.getElementById("search_text").value;
+        let url = "http://127.0.0.1:5000/";
         // send request to backend, get json file back
-        this.items = this.get_method(".", query_term);
-        ReactDOM.render(
-            <DocListSearch></DocListSearch>,
-            document.getElementById('list')
-        );
-        return false;
+        this.fetch_docs(url, query_term);
     }
     
     // rendor stuff
@@ -79,6 +86,7 @@ class DocListSearch extends React.Component {
     
     // load the list
     generate_list(){
+        this.items = this.state.retrieved_list.docs_list;
         // push to the list tag
         const list = [];
         list.push(

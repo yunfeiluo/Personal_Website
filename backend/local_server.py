@@ -1,6 +1,12 @@
+from flask import Flask
 import json
-from feature.search_engine.retrieval_model import Query_Likelihood, BM25
+from flask_cors import CORS, cross_origin
+from backend.search_engine.retrieval_model import Query_Likelihood, BM25
+ 
+app = Flask(__name__)
+CORS(app)
 
+## Query Process ########################################################
 # remove the dot '.' in the string, return string
 def removeD(word):
     res = list()
@@ -46,38 +52,36 @@ def tokenize(lines):
             words.extend(removeD(word))
     return words
 
-def query(queries_path, indexing_path, collection_path):
+def query(queries, indexing_path, collection_path):
     inv_ind = None
     docs = None
-    queries = None
     with open(indexing_path, 'r') as f:
         inv_ind = json.load(f)
     with open(collection_path, 'r') as f:
         docs = json.load(f)
-    with open(queries_path, 'r') as f:
-        queries = json.load(f)
-    queries = tokenize(queries)
+    queries = tokenize([queries])
 
     model = BM25(k1=1.1, k2=10, b=0.6, inv_ind = inv_ind, docs=docs)
     #model = Query_Likelihood(mu=1000, inv_ind = inv_ind, docs=docs)
 
     retrieved_list = model.queries(queries)
     return retrieved_list
+####################################################################################
 
-if __name__ == '__main__':
-    collection_path = 'articles/collection.json'
-    indexing_path = 'articles/indexing.json'
-    queries_path = 'articles/queries.json'
+@app.route('/<queries>')
+def fetch_docs(queries):
+    indexing_path = 'backend/search_engine/stored/indexing.json'
+    collection_path = 'backend/search_engine/stored/collection.json'
     
-    retrieved_list = query(queries_path, indexing_path, collection_path)
+    retrieved_list = query(queries, indexing_path, collection_path)
 
     # check / output
-    content = "let docs_list = ["
+    docs_list = list()
     for i in retrieved_list:
-        print(i["obj"]["title"])
-        content += str(i["obj"]) + ','
-    content = content[:len(content)-1]
-    content += ']'
-    with open("articles/retrieved_list.js", 'w') as f:
-        f.write(content)
-        
+        # print(i["obj"]["title"])
+        docs_list.append(i["obj"])
+
+    return {"docs_list": docs_list}
+ 
+if __name__ == '__main__':
+    app.run()

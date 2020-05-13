@@ -1,10 +1,10 @@
 import json
-from feature.search_engine.preprocess_and_indexing import preprocess, inverted_index
+from backend.search_engine.preprocess_and_indexing import preprocess, inverted_index
 
 def preprocessing(stored_docs_path, indexing_path, collection_path):
     # fetch stopwords
     stopwords = list()
-    with open('feature/search_engine/stopwords.txt', 'r') as f:
+    with open('backend/search_engine/stopwords.txt', 'r') as f:
         stopwords = f.read()
         stopwords = stopwords.split('\n')
         stopwords.pop()
@@ -41,7 +41,7 @@ def preprocessing(stored_docs_path, indexing_path, collection_path):
         print(len(tokenize.text[i]["text"]))
     
 if __name__ == '__main__':
-    stored_docs_path = 'articles/list.json'
-    indexing_path = 'articles/indexing.json'
-    collection_path = 'articles/collection.json'
+    stored_docs_path = 'backend/search_engine/stored/list.json'
+    indexing_path = 'backend/search_engine/stored/indexing.json'
+    collection_path = 'backend/search_engine/stored/collection.json'
     preprocessing(stored_docs_path, indexing_path, collection_path)
