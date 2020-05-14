@@ -72,14 +72,18 @@ def query(queries, indexing_path, collection_path):
 def fetch_docs(queries):
     indexing_path = 'backend/search_engine/stored/indexing.json'
     collection_path = 'backend/search_engine/stored/collection.json'
-    
-    retrieved_list = query(queries, indexing_path, collection_path)
+    data_path = 'backend/search_engine/stored/list.json'
 
-    # check / output
     docs_list = list()
-    for i in retrieved_list:
-        # print(i["obj"]["title"])
-        docs_list.append(i["obj"])
+    if queries in ["blogs", "documentations", "reports"]:
+        data = None
+        with open(data_path, 'r') as f:
+            data = json.load(f)
+        docs_list = data[queries]
+    else:    
+        retrieved_list = query(queries, indexing_path, collection_path)
+        for i in retrieved_list:
+            docs_list.append(i["obj"])
 
     return {"docs_list": docs_list}
  

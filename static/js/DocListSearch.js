@@ -21,7 +21,7 @@ class DocListSearch extends React.Component {
                 <DocListSearch></DocListSearch>,
                 document.getElementById('list')
             );
-            console.log(this.state.retrieved_list);
+            //console.log(this.state.retrieved_list);
         }).catch(err => {
             console.log('err');
         });

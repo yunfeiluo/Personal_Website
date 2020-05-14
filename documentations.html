@@ -49,44 +49,31 @@
             class DocList extends React.Component {
                 constructor(props){
                     super(props);
-                    this.state = {list: true, depth:-1};
-                    this.items = this.get_method(".", doc_type, " ");
+                    this.state = {list: true, depth:-1, retrieved_list: {docs_list: []}};
+                    this.items = this.state.retrieved_list.docs_list;
                     this.handleClick = this.handleClick.bind(this);
                     this.curr_items = [];
+                    this.search_attempted = 0;
+                    this.handle_search();
                 }
                 
-                // helper functions
                 // get json file from backend
-                dfs(item, res){
-                    res.push(item);
-                    if (item.docs.length == 0){
-                        return undefined;
-                    }
-                    for (let sub_item of item.docs){
-                        this.dfs(sub_item, res);
-                    }
-                }
-
-                get_method(url, doc_type, queries){
-                    if (doc_type == "documentations"){
-                        return data.documentations;
-                    }
-                    if (doc_type == "blogs"){
-                        return data.blogs;
-                    }
-                    if (doc_type == "reports"){
-                        return data.reports;
-                    }   
-                    
-                    let res = [];
-                    let curr_list = [data.documentations, data.reports, data.blogs];
-                    
-                    for (let list of curr_list){
-                        for (let item of list){
-                            this.dfs(item, res);
-                        }
-                    }
-                    return res;
+                fetch_docs(url, query_term){
+                    fetch(url.concat(query_term), {
+                        method: "GET"
+                    }).then(response => {
+                        return response.json()
+                    }).then(data => {
+                        // Work with JSON data here
+                        this.setState({list: true, depth:-1, retrieved_list: data});
+                        ReactDOM.render(
+                            <DocList></DocList>,
+                            document.getElementById('list')
+                        );
+                        //console.log(this.state.retrieved_list);
+                    }).catch(err => {
+                        console.log('err');
+                    });
                 }
                 
                 // handling events
@@ -111,6 +98,14 @@
                         <DocList></DocList>,
                         document.getElementById('list')
                     );
+                }
+
+                handle_search(){
+                    this.search_attempted += 1;
+                    let query_term = "documentations";
+                    let url = "http://127.0.0.1:5000/";
+                    // send request to backend, get json file back
+                    this.fetch_docs(url, query_term);
                 }
                 
                 // rendor stuff
@@ -140,6 +135,7 @@
                 
                 // load the list
                 generate_list(){
+                    this.items = this.state.retrieved_list.docs_list;
                     // push to the list tag
                     const list = [];
                     for (let item of this.items) {
