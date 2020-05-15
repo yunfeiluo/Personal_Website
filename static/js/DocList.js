@@ -54,7 +54,7 @@ class DocList extends React.Component {
 
     handle_search(){
         this.search_attempted += 1;
-        let query_term = "reports";
+        let query_term = doc_type;
         let url = "http://127.0.0.1:5000/";
         // send request to backend, get json file back
         this.fetch_docs(url, query_term);
@@ -66,7 +66,7 @@ class DocList extends React.Component {
         const list = [];
         list.push(
             <div id = {"display_doc"}>
-                <embed src={this.curr_items[this.state.depth].path} width="100%" height="650px" />
+                <iframe src={this.curr_items[this.state.depth].path}></iframe>
             </div>
         );
         for (let item of this.curr_items[this.state.depth].docs) {

@@ -6,16 +6,16 @@
             "type": "documentation",
             "title": "Personal Website, Software Engineering Project",
             "tags": ["Software Engineering", "Full Stack"],
-            "path": "articles/documentations/...",
-            "summery":".",
+            "path": "articles/documentations/personal_website/Introduction.pdf",
+            "summery":"This website was mainly designed for representing the Software Engineering and open source projects that I've done or participated in.",
             "docs": [
                 {
                     "id": 4,
                     "type": "documentations",
                     "title": "Requirements Analysis, Personal Website",
                     "tags": ["Software Engineering", "Full Stack"],
-                    "path": "articles/documentations/...",
-                    "summery": ".",
+                    "path": "articles/documentations/personal_website/Requirements.pdf",
+                    "summery": "The functionalities and the non-functionalities of the personal website project; stating the reasons for the chosen tools and patterns. ",
                     "docs":[]
                 },
                 {

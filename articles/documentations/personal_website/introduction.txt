@@ -1,0 +1,11 @@
+Personal Website Introduction
+Author: Yunfei Luo
+This website was mainly designed for representing the Software Engineering and open source projects that I've
+done or participated in.
+\\ \\
+There are reports and documentaions of the projects. Moreover, there are blogs, include the reflections and discussions on the papers of the related fields that I've read. The blogs also include some of my learning
+notes on the significant concepts in the engineering (application) field. 
+\\ \\
+There is a micro-search-engine implemented in the backend to enable the search functionalities. Since the articles are stored structured in a retrospective way, they are easy to be retrieved and be able to concisely displayed to the readers.
+\\ \\
+The website well-come all readers who are interested in the topics of these articles. Enjoy the reading! 

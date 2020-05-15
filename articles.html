@@ -110,7 +110,7 @@
                     const list = [];
                     list.push(
                         <div id = {"display_doc"}>
-                            <embed src={this.curr_items[this.state.depth].path} width="100%" height="650px" />
+                            <iframe src={this.curr_items[this.state.depth].path}></iframe>
                         </div>
                     );
                     for (let item of this.curr_items[this.state.depth].docs) {

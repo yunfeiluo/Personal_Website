@@ -246,3 +246,11 @@ a{text-decoration: none;}
 #list #result_bar p{
     padding: 0 0 0 0;
 }
+
+#list iframe{
+    background: url("../images/bg.png");
+    width: 100%;
+    height: 630px;
+    border: 0;
+    padding: 0 0 10px 0;
+}
