@@ -1,6 +1,0 @@
-frontend:
-	react
-
-backend:
-	search_engine
-		nltk, json, math
