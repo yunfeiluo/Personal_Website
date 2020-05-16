@@ -1,0 +1,24 @@
+1. Overview.
+Figure 1. Entire Architecture
+ 
+2. Front-end Schema.
+Figure 2. Frontend Architecture
+ 
+Homepage is the node connecting the website to with users. Search page is the node connecting the frontend to the backend. Both Homepage and Search page navigate to the article pages.
+ 
+Every pages return to the homepage. 
+ 
+Every pages contain Contact info in the footer. 
+ 
+3. Back-end Scheme.
+Figure 3. Backtend Architecture.
+ 
+Event Handler is the node receiving requests from the frontend. It will run the micro search engine, and return the result back to the frontend. 
+ 
+Within the micro search engine, the Store Documents and Index contains the data needed for retrieving the documents. The retrieval model rank the documents based on the stored data, and return the result back to the Event handler node. 
+ 
+4. Database Schema.
+includegraphics[scale=0.21]{article_stored.jpg}
+Figure 4. table for storing Article object
+ 
+Each article has a unique id. Type attribute could be ${$blogs, reports, documentations$}$. Path attribute specifies where the document stored. Docs attribute points to other documents that is within the scope of project of the Article object. 

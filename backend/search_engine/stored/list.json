@@ -23,8 +23,8 @@
                     "type": "documentations",
                     "title": "High Level Design, Personal Website",
                     "tags": ["Software Engineering", "Full Stack"],
-                    "path": "articles/documentations/...",
-                    "summery": ".",
+                    "path": "articles/documentations/personal_website/high_level_design.pdf",
+                    "summery": "Displaying the Entire Architecture of the personal website project; Schemas for Front-end, Back-end, and Database.",
                     "docs":[]
                 },
                 {
@@ -32,7 +32,7 @@
                     "type": "documentations",
                     "title": "Low level Design -- Search Engine, Personal Website",
                     "tags": ["Software Engineering", "Full Stack", "Search Engine"],
-                    "path": "articles/documentations/...",
+                    "path": "articles/documentations/personal_website/...",
                     "summery": ".",
                     "docs":[]
                 }
