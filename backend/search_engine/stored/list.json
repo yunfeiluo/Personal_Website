@@ -32,8 +32,8 @@
                     "type": "documentations",
                     "title": "Low level Design -- Search Engine, Personal Website",
                     "tags": ["Software Engineering", "Full Stack", "Search Engine"],
-                    "path": "articles/documentations/personal_website/...",
-                    "summery": ".",
+                    "path": "articles/documentations/personal_website/low_level_design_search_engine.pdf",
+                    "summery": "Details of the micro search engine, including the steps for query processing, indexing techniques, and retrieval models.",
                     "docs":[]
                 }
             ]
