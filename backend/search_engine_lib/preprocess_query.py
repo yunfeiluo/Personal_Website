@@ -1,7 +1,8 @@
 import json
-from backend.search_engine.retrieval_model import Query_Likelihood, BM25
+from search_engine_lib.retrieval_model import BM25
+# from retrieval_model import Query_Likelihood
 
-# remove the dot '.' in the string, return string
+# helper functions
 def removeD(word):
     res = list()
     lw = len(word)
@@ -31,6 +32,7 @@ def removeD(word):
 def tokenize(lines):
     words = list()
     # split by space
+    # tokenize
     for line in lines:
         word = ''
         for c in line:
@@ -44,19 +46,26 @@ def tokenize(lines):
                 word = ''
         if len(word) >= 1:
             words.extend(removeD(word))
-    return words
+    
+    # read stopwords list
+    stopwords = dict()
+    with open('search_engine_lib/stopwords.txt', 'r') as f:
+        stop_w = f.read().split('\n')
+        for word in stop_w:
+            stopwords[word] = True
+    
+    # return processed result (remove stopwords)
+    return [word for word in words if stopwords.get(word) == None]
 
-def query(queries_path, indexing_path, collection_path):
+def query(queries, indexing_path, collection_path):
     inv_ind = None
     docs = None
-    queries = None
     with open(indexing_path, 'r') as f:
         inv_ind = json.load(f)
     with open(collection_path, 'r') as f:
         docs = json.load(f)
-    with open(queries_path, 'r') as f:
-        queries = json.load(f)
-    queries = tokenize(queries)
+    queries = tokenize([queries])
+    print("queries", queries)
 
     model = BM25(k1=1.1, k2=10, b=0.6, inv_ind = inv_ind, docs=docs)
     #model = Query_Likelihood(mu=1000, inv_ind = inv_ind, docs=docs)
@@ -64,20 +73,26 @@ def query(queries_path, indexing_path, collection_path):
     retrieved_list = model.queries(queries)
     return retrieved_list
 
-if __name__ == '__main__':
-    queries_path = 'backend/search_engine/stored/queries.json'
-    indexing_path = 'backend/search_engine/stored/indexing.json'
-    collection_path = 'backend/search_engine/stored/collection.json'
-    
-    retrieved_list = query(queries_path, indexing_path, collection_path)
+'''
+function run, take queries as input, output the retrieved_list
+'''
 
-    # check / output
-    content = "let docs_list = ["
-    for i in retrieved_list:
-        print(i["obj"]["title"])
-        content += str(i["obj"]) + ','
-    content = content[:len(content)-1]
-    content += ']'
-    with open("articles/retrieved_list.js", 'w') as f:
-        f.write(content)
-        
+def run(queries):
+    # fetch the stored docs and indexing
+    indexing_path = 'search_engine_lib/stored/indexing.json'
+    collection_path = 'search_engine_lib/stored/collection.json'
+    data_path = 'search_engine_lib/stored/list.json'
+    
+    # perform retrieving tasks
+    docs_list = list()
+    if queries in ["blogs", "documentations", "reports"]:
+        data = None
+        with open(data_path, 'r') as f:
+            data = json.load(f)
+        docs_list = data[queries]
+    else:    
+        retrieved_list = query(queries, indexing_path, collection_path)
+        for i in retrieved_list:
+            docs_list.append(i["obj"])
+    
+    return docs_list

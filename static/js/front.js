@@ -53,8 +53,8 @@ window.onscroll=function(){
 //global variables
 var imgs = [
 "url(static/images/slide0.jpg)", 
-"url(static/images/slide1.JPG)", 
-"url(static/images/slide2.JPG)"
+"url(static/images/slide1.jpg)", 
+"url(static/images/slide2.jpg)"
 ];
 var index = 0;
 
