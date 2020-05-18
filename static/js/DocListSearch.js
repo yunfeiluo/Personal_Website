@@ -54,7 +54,8 @@ class DocListSearch extends React.Component {
     handle_search(){
         this.search_attempted += 1;
         let query_term = document.getElementById("search_text").value;
-        let url = "http://127.0.0.1:5000/";
+        let url = "https://c4bd3emqvb.execute-api.us-east-2.amazonaws.com/prod/search_func?query=";
+        // let url = "http://127.0.0.1:5000/";
         // send request to backend, get json file back
         this.fetch_docs(url, query_term);
     }
@@ -89,6 +90,8 @@ class DocListSearch extends React.Component {
         this.items = this.state.retrieved_list.docs_list;
         // push to the list tag
         const list = [];
+
+        // search bar
         list.push(
             <div id="search_bar">
             <form onSubmit={() => this.handle_search()} target="curr_iframe">
@@ -107,17 +110,19 @@ class DocListSearch extends React.Component {
                 </div>
             );
         }
+
+        // document list
         for (let item of this.items) {
-        list.push(
-            <div id = {item.id}>
-                <div className = "doc" onClick = {() => this.handleClick(item)}>
-                <div><h3>{item.title}</h3></div>
-                <div>{item.summery}</div>
-                <div><u>(Click to view the full article)</u></div>
+            list.push(
+                <div id = {item.id}>
+                    <div className = "doc" onClick = {() => this.handleClick(item)}>
+                    <div><h3>{item.title}</h3></div>
+                    <div>{item.summery}</div>
+                    <div><u>(Click to view the full article)</u></div>
+                    </div>
+                    <div className = "split"><hr /></div>
                 </div>
-                <div className = "split"><hr /></div>
-            </div>
-        );
+            );
         }
         return (<div>{list}</div>);
     }

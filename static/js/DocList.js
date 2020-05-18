@@ -55,7 +55,8 @@ class DocList extends React.Component {
     handle_search(){
         this.search_attempted += 1;
         let query_term = doc_type;
-        let url = "http://127.0.0.1:5000/";
+        let url = "https://c4bd3emqvb.execute-api.us-east-2.amazonaws.com/prod/search_func?query=";
+        // let url = "http://127.0.0.1:5000/";
         // send request to backend, get json file back
         this.fetch_docs(url, query_term);
     }
