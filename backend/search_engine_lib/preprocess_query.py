@@ -79,9 +79,9 @@ function run, take queries as input, output the retrieved_list
 
 def run(queries):
     # fetch the stored docs and indexing
-    indexing_path = 'search_engine_lib/stored/indexing.json'
-    collection_path = 'search_engine_lib/stored/collection.json'
-    data_path = 'search_engine_lib/stored/list.json'
+    indexing_path = 'search_engine_lib/stored/indexing_.json'
+    collection_path = 'search_engine_lib/stored/collection_.json'
+    data_path = 'search_engine_lib/stored/list_.json'
     
     # perform retrieving tasks
     docs_list = list()

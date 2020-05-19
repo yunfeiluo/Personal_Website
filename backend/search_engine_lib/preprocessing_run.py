@@ -41,7 +41,7 @@ def preprocessing(stored_docs_path, indexing_path, collection_path):
         print("doc length: ", len(tokenize.text[i]["text"]))
     
 if __name__ == '__main__':
-    stored_docs_path = 'search_engine_lib/stored/list.json'
-    indexing_path = 'search_engine_lib/stored/indexing.json'
-    collection_path = 'search_engine_lib/stored/collection.json'
+    stored_docs_path = 'search_engine_lib/stored/list_.json'
+    indexing_path = 'search_engine_lib/stored/indexing_.json'
+    collection_path = 'search_engine_lib/stored/collection_.json'
     preprocessing(stored_docs_path, indexing_path, collection_path)
