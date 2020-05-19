@@ -105,14 +105,16 @@ class preprocess:
         for i in self.text:
             lines = list()
             path = self.text[i]["obj"]["path"]
-            try:
-                with open('../' + path[:len(path) - 3] + 'txt', 'r') as f:
-                    lines = f.read()
-                    lines = lines.split('\n')
-                    lines.pop()
-            except:
-                self.text[i]["text"] = list()
-                continue
+
+            lines = self.text[i]["obj"]["text"].split('\n')
+            # try:
+            #     with open('../' + path[:len(path) - 3] + 'txt', 'r') as f:
+            #         lines = f.read()
+            #         lines = lines.split('\n')
+            #         lines.pop()
+            # except:
+            #     self.text[i]["text"] = list()
+            #     continue
             words = self.tokenize(lines)
             
             self.text[i]["text"] = words
