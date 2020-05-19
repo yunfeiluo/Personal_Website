@@ -1,0 +1,5 @@
+1. upload pdf file to s3 bucket: personal-website2020
+
+2. go to aws DynamoDB to update the detail information. 
+
+3. go to lambda, run: fetch_docs_and_indexing
