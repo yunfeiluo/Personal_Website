@@ -1,0 +1,15 @@
+{
+    "id": -1, 
+    "type": "blog", 
+    "title": "Imputation for Time Series data with Bidirectional Recurrent method", 
+    "docs": [], 
+    "tags": [
+        "Machine Learning",
+        "Artificial Intelligence", 
+        "Numerical Optimization", 
+        "Time Series"
+    ], 
+    "path": "articles/blogs/Bidirectional_Recurrent_Imputation_for_Time_Series.pdf",
+    "summery": "The main goal of the paper is to introduce a novel method called Bidirectional Recurrent Imputation for Time Series (BRITS) to handle the missing values in the time-series data.", 
+    "text": "\\title{Reiew of the Paper}\n\\author{Student: Yunfei Luo}\n\n\\centerline{\\textbf{Bidirectional Recurrent Imputation for Time\nSeries}} \\\\\n\\centerline{\\textbf{by Wei Cao, Dong Wang, Jian Li, Hao Zhou, Yitan Li, Lei Li}}\\\\\n\\centerline{Reference Paper URL: \\url{https://arxiv.org/abs/1805.10572}}\n\\\\ \\\\\n\\textbf{Introduction/Main Goal}\\\\\nThe paper was published in 2018. The main goal of the paper is to introduce a novel method called Bidirectional Recurrent Imputation for Time Series (BRITS) to handle the missing values in the time-series data, and show that such method is valid and is better than the state-of-art methods. \n\\\\ \\\\\n\\textbf{What's New/Improvement}\\\\\nBy treating missing values as the variables in the bidirectional RNNs graph, we could find numerically optimal values for the missing values with their gradients in both forward and backward direction (respect to the direction in the data sequence), so that the imputation could be more accurate. Moreover, while training the model, no assumptions of the data generating process are needed. \n\\\\ \\\\\n\\textbf{Observations}\\\\\nThe input is time-series data, and the output is the class value of the target label in the classification/regression tasks. The tasks of missing values imputation and classification/regression are processed simultaneously. That is, when the input value $x$ come into the Recurrent Neural Network (RNN), if it is missing at some point $x_t$, it will be imputed by both its gradients in the forward and backward directions, then it will be sent for the further computation in the layers in RNN. \n\\\\ \\\\\n\\textbf{Result}\\\\\nThe result of heath care classification is shown below (Section 5.3, page 9 in the paper):\\\\\n\\includegraphics[scale = 0.5]{BRITS result}\n\\\\ \\\\\nThe authors also apply the model on different datasets include air quality and localization of human activity. All the case shows that the BRITS method perform better than other state-of-art methods. \n\\\\ \\\\\n\\textbf{Extension/Follow up}\\\\\nThe possible follow up would be the scalability of the method, i.e. try these methods on datasets with different size, and see the performance of the BRIST method. "
+}
