@@ -1,0 +1,12 @@
+search_func need s3 bucket read access.
+
+fetch_docs_and_indexing and processing_docs need s3 bucket read and write access.
+They also need DynamoDB read and upload access.
+
+search_func serve the search task, dependencies on:
+list_.json # list fetch from database
+collection_.json # list of docs, created by preprocessing docs
+indexing_.json # inverted index, created by preprocessing docs
+
+fetch_docs_and_indexing and processing_docs dependencies on
+avail_id.json # indexing in database

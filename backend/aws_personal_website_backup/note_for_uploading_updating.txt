@@ -1,0 +1,21 @@
+1. upload pdf file to s3 bucket: personal-website2020
+
+2. upload json file with corresponding info, attached with pdf file
+info include:
+id: -1 (will be modified when push into database, by avail_id.json)
+title: "",
+type: "", 
+tags, [],
+path: "", 
+summery: "", 
+text: "", 
+docs: []
+
+go to backend folder, run:
+python -m upload_and_process_doc.process_pdf type filename
+where "type" and "filename" are the command line arguments.
+Then go to articles folder to complete the above information in the json file. 
+
+
+update:
+3. go to lambda, run: fetch_docs_and_indexing
