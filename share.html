@@ -41,16 +41,21 @@
 
             <script type="text/javascript">
                 let article = window.location.search.substring(9, );
-                path = "articles/" + article + ".pdf";
+                let path = "articles/" + article + ".pdf";
                 
-                for (var i = 0; i < article.length; i++){
-                    if (article.charAt(i) == '/'){
-                        article = article.substring(i+1, );
-                        break;
-                    }
+                if (article.length <= 9){
+                    document.getElementById("article_title").innerHTML = "Page Not Found";
                 }
-                
-                document.getElementById("article_title").innerHTML = article;
+                else{
+                    for (var i = 0; i < article.length; i++){
+                        if (article.charAt(i) == '/'){
+                            article = article.substring(i+1, );
+                            break;
+                        }
+                    }
+                    
+                    document.getElementById("article_title").innerHTML = article;
+                }
             </script>
 
             <div id="list"></div>
@@ -59,7 +64,7 @@
                     constructor(props){
                         super(props);
                     }
-                    
+
                     // rendor stuff
                     // load the document
                     display_document(){
@@ -67,7 +72,7 @@
                         //alert(article);
                         list.push(
                             <div id = {"display_doc"}>
-                                <iframe src={path}></iframe>
+                                <iframe id = {"article_frame"} src={path}></iframe>
                                 <p>
                                 Yunfei Luo's Original Article. 
                                 </p>
