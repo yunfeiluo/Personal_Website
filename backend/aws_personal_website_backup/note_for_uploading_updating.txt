@@ -16,6 +16,7 @@ python -m upload_and_process_doc.process_pdf type filename
 where "type" and "filename" are the command line arguments.
 Then go to articles folder to complete the above information in the json file. 
 
+Then upload the json file to the s3 bucket.
 
 update:
 3. go to lambda, run: fetch_docs_and_indexing
