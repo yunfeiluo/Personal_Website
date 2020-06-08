@@ -41,15 +41,26 @@
 
             <script type="text/javascript">
                 let article = window.location.search.substring(9, );
-                let path = "articles/" + article + ".pdf";
+                let path = article;
+                if (article.substring(0, 9) != "articles/"){
+                    path = "articles/" + article;
+                }
+                if (article.substring(article.length - 4, ) != ".pdf"){
+                    path += ".pdf";
+                }
+                //let path = "articles/" + article + ".pdf";
                 
                 if (article.length <= 9){
                     document.getElementById("article_title").innerHTML = "Page Not Found";
                 }
                 else{
-                    for (var i = 0; i < article.length; i++){
-                        if (article.charAt(i) == '/'){
-                            article = article.substring(i+1, );
+                    slash_count = 0
+                    for (var i = 0; i < path.length; i++){
+                        if (path.charAt(i) == '/'){
+                            slash_count += 1;
+                        }
+                        if (slash_count == 2){
+                            article = path.substring(i+1, path.length - 4);
                             break;
                         }
                     }

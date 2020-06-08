@@ -60,6 +60,10 @@ class DocList extends React.Component {
         // send request to backend, get json file back
         this.fetch_docs(url, query_term);
     }
+
+    handleShare(path){
+        alert("https://yunfeiluo.com/share.html?article=" + path);
+    }
     
     // rendor stuff
     // load the document
@@ -83,6 +87,7 @@ class DocList extends React.Component {
         );
         }
         list.push(<div><button className ="back_button" onClick = {()=> this.handleClick({path: "back"})}><p>Back</p></button></div>);
+        list.push(<div><button className ="back_button" onClick = {()=> this.handleShare(this.curr_items[this.state.depth].path)}><p>Get Shareable Link</p></button></div>);
         return (<div>{list}</div>);
     }
     
