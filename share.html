@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Yunfei Luo's Personal Website</title>
+<meta charset="utf-8">
+<link rel="icon" type="image/x-icon" href="static/images/icon.png" />
+<link rel="stylesheet" href="static/css/basic.css">
+<script rel="stylesheet" src='static/js/front.js'></script>
+
+<!-- React -->
+<script src="build/react.development.js"></script>
+<script src="build/react-dom.development.js"></script>
+<script src="build/babel.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <ul>
+                <li style="cursor:pointer">
+                    <a href="index.html">Home</a></li>
+                <li style="cursor:pointer" onclick = "scroll_down(' ')">
+                    <a class="active">Blogs</a></li>
+                <li style="cursor:pointer" onclick = "scroll_down('bcontact')">
+                    <a>Contact</a></li>
+                <!--<li style="cursor:pointer" onclick = "scroll_down('login')">
+                    <a>Login</a></li>-->
+            </ul>
+        </div>
+        <!--back to top button-->
+        <div>
+            <button id = "scroll_top" onmouseover = "opa_up('s')" onmouseout = "opa_down('s')" onclick = "scroll_top()">
+                <img src="static/images/to-top.png">
+            </button>
+        </div>
+    </header>
+
+    <!-- section 0 -->
+    <section class = "blogs">
+        <div class = "container">
+            <h2 id="article_title"></h2>
+
+            <script type="text/javascript">
+                let article = window.location.search.substring(9, );
+                path = "articles/" + article + ".pdf";
+                
+                for (var i = 0; i < article.length; i++){
+                    if (article.charAt(i) == '/'){
+                        article = article.substring(i+1, );
+                        break;
+                    }
+                }
+                
+                document.getElementById("article_title").innerHTML = article;
+            </script>
+
+            <div id="list"></div>
+            <script type="text/babel">
+                class ShareArticle extends React.Component {
+                    constructor(props){
+                        super(props);
+                    }
+                    
+                    // rendor stuff
+                    // load the document
+                    display_document(){
+                        const list = [];
+                        //alert(article);
+                        list.push(
+                            <div id = {"display_doc"}>
+                                <iframe src={path}></iframe>
+                                <p>
+                                Yunfei Luo's Original Article. 
+                                </p>
+                            </div>
+                        );
+                        return (<div>{list}</div>);
+                    }
+                    
+                    // rendor funcion
+                    render () {
+                        return this.display_document();
+                    }
+                }
+    
+                // Apply
+                ReactDOM.render(
+                    <ShareArticle></ShareArticle>,
+                    document.getElementById('list')
+                );
+            </script>
+        </div>
+    </section>
+
+    <!-- The end: footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="top">
+                <figure>
+                    <h4>Contact Info.</h4>
+                    <ul>
+                        <li><p>E-mail: yunfeiluo@umass.edu</p></li>
+                        <li><p>Phone: 413. 404. 2124</p></li>
+                        <li><p>.</p></li>
+                        <li><p>615 Main Street</p></li>
+                        <li><p>Amherst, MA, United States</p></li>
+                    </ul>
+                </figure>
+                <figure>
+                    <h4>About Me</h4>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/in/yunfei-luo-616ab7171/" target="_blank"><u>My LinkedIn Profile</u></a></li>
+                        <li><a href="https://github.com/yunfeiluo" target="_blank"><u>My Github</u></a></li>
+                    </ul>
+                </figure>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    
+        <div class="container">
+            <div class="bottom">
+                XXX Supported
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

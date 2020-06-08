@@ -10,10 +10,10 @@ window.onload =function(){
     // else {
     //     ("#scroll_top").hide();
     // }
-    //reject right click
-    document.oncontextmenu = function(){
-        return false;
-    };
+    // //reject right click
+    // document.oncontextmenu = function(){
+    //     return false;
+    // };
     //reject view source code
     document.onkeydown = function (){
         var e = window.event || arguments[0];
