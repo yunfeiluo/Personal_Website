@@ -213,13 +213,31 @@ a{text-decoration: none;}
     cursor: default;
 }
 
+#list #display_doc p{
+    padding: 0 0 0 0;
+}
+
 #list .back_button{
     background: url("../images/bg.jpg");
     cursor: pointer;
-    padding: 10px 50px 10px 50px;
+    padding: 5px 50px 10px 50px;
+    float: left;
 }
 
 #list .back_button p{
+    padding: 0 0 0 0;
+    color:rgb(1, 1, 1);
+    font-size: 30px;
+}
+
+#list .share_button{
+    background: url("../images/bg.jpg");
+    cursor: pointer;
+    padding: 10px 50px 10px 50px;
+    float: right;
+}
+
+#list .share_button p{
     padding: 0 0 0 0;
     color:rgb(1, 1, 1);
     font-size: 30px;

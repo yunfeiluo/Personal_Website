@@ -71,6 +71,7 @@ class DocListSearch extends React.Component {
         list.push(
             <div id = {"display_doc"}>
                 <iframe src={this.curr_items[this.state.depth].path}></iframe>
+                <p>Yunfei Luo's Original Article. </p>
             </div>
         );
         for (let item of this.curr_items[this.state.depth].docs) {
@@ -86,7 +87,7 @@ class DocListSearch extends React.Component {
         );
         }
         list.push(<div><button className ="back_button" onClick = {()=> this.handleClick({path: "back"})}><p>Back</p></button></div>);
-        list.push(<div><button className ="back_button" onClick = {()=> this.handleShare(this.curr_items[this.state.depth].path)}><p>Get Shareable Link</p></button></div>);
+        list.push(<div><button className ="share_button" onClick = {()=> this.handleShare(this.curr_items[this.state.depth].path)}><p>Get Shareable Link</p></button></div>);
         return (<div>{list}</div>);
     }
     

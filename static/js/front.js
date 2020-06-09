@@ -10,11 +10,11 @@ window.onload =function(){
     // else {
     //     ("#scroll_top").hide();
     // }
-    // //reject right click
+    // //right click
     // document.oncontextmenu = function(){
     //     return false;
     // };
-    //reject view source code
+    // block some shortcut keys
     document.onkeydown = function (){
         var e = window.event || arguments[0];
         // //F12
