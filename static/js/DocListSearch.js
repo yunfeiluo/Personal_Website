@@ -61,7 +61,7 @@ class DocListSearch extends React.Component {
     }
 
     handleShare(path){
-        alert("https://yunfeiluo.com/share.html?article=" + path);
+        prompt("Here is the Shareable Link:", "https://yunfeiluo.com/share.html?article=" + path);
     }
     
     // rendor stuff
