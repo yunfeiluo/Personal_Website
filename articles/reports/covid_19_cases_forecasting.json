@@ -2,7 +2,7 @@
     "id": -1,
     "type": "report",
     "title": "COVID-19 Cases Forecasting, Machine Learning Research Project",
-    "path": "articles/reports/covid_19_cases_forecasting__machine_learning_research_project.pdf",
+    "path": "articles/reports/covid_19_cases_forecasting.pdf",
     "docs": [],
     "tags": ["Machine Learning", "Artificial Intelligence", "Open Source", "Neural Networks"],
     "summery": "As the novel virus had bothered people all over the world for months, finding the factors that influence the spreading pattern becomes a series issue that people are studying and discussing about. In this project, we explored and developed a general platform for the forecasting of the trends of increasing in the number of confirmed cases, death cases, and recovered cases in different regions with varies models including Linear Models, Recurrent Neural Networks, and Deep Multitask Networks.",

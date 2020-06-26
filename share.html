@@ -36,7 +36,7 @@
 
     <!-- section 0 -->
     <section class = "blogs">
-        <div class = "container">
+        <div class = "article_container">
             <h2 id="article_title"></h2>
 
             <script type="text/javascript">
@@ -48,25 +48,25 @@
                 if (article.substring(article.length - 4, ) != ".pdf"){
                     path += ".pdf";
                 }
-                //let path = "articles/" + article + ".pdf";
-                
-                if (article.length <= 9){
-                    document.getElementById("article_title").innerHTML = "Page Not Found";
-                }
-                else{
-                    slash_count = 0
-                    for (var i = 0; i < path.length; i++){
-                        if (path.charAt(i) == '/'){
-                            slash_count += 1;
+
+                article = "";
+                slash_count = 0
+                for (var i = 0; i < path.length; i++){
+                    if (slash_count >= 2){
+                        if (path.substring(i, i+4) == ".pdf"){
+                            break
                         }
-                        if (slash_count == 2){
-                            article = path.substring(i+1, path.length - 4);
-                            break;
+                        else{
+                            article += path.charAt(i);
                         }
                     }
-                    
-                    document.getElementById("article_title").innerHTML = article;
+                    if (path.charAt(i) == '/'){
+                        slash_count += 1;
+                    }
                 }
+                
+                document.getElementById("article_title").innerHTML = article;
+                document.title = article + "--" + "Yunfei Luo's Original Article";
             </script>
 
             <div id="list"></div>
@@ -84,7 +84,7 @@
                         //append: ?article=reports/studentlife_spring2020_report
                         list.push(
                             <div id = {"display_doc"}>
-                                <iframe id = {"article_frame"} src={path}></iframe>
+                                <iframe id = {"article_frame"} src={"https://yunfeiluo.com/PDF.js/web/viewer.html?file=https://yunfeiluo.com/" + path}></iframe>
                                 <p>
                                 Yunfei Luo's Original Article. 
                                 </p>
